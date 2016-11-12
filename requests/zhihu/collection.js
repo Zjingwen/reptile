@@ -14,10 +14,16 @@ function GetCollection (id,page){
 		headers : {
 			'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
 			'Content-Type': 'text/html; charset=UTF-8',
-      		'Referer': 'https://www.zhihu.com/question/'+id
+			'method': 'POST',
+			'Host': 'www.zhihu.com',
+			'Pragma': 'no-cache',
+			'Upgrade-Insecure-Requests':'1'
 		}
 	};
-	if(page) zhihu.url = zhihu.url + '?page='+page;
+	if(page) {
+		zhihu.url = zhihu.url + '?page='+page;
+		zhihu.headers.Referer = zhihu.url + '?page='+page;
+	}
 
 	return request(zhihu).then(function (content) {
 		var $ = cheerio.load(content.body,{decodeEntities: false});

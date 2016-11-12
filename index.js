@@ -41,7 +41,7 @@ function collection(id,page){
 		})
 		setTimeout(function() {
 			if(value[0]) collection(id,page);
-		},1000);
+		},500);
 	});
 }
 function io(title,content){
