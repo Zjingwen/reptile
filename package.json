@@ -1,0 +1,15 @@
+{
+  "name": "collect",
+  "version": "1.0.0",
+  "description": "下载知乎收藏",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "zhihu": "^1.1.3",
+    "thenjs": "^2.0.4"
+  }
+}
