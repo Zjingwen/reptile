@@ -7,7 +7,8 @@ var config = {
 		'Host': 'www.zhihu.com',
 		'Pragma': 'no-cache',
 		'Upgrade-Insecure-Requests':'1'
-	}
+	},
+	timeout: 500
 };
 module.exports={
 	config:config
