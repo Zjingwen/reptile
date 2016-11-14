@@ -1,4 +1,5 @@
 'use strict';
+
 var config = require("../htmlAnalyse/config.js").config;
 
 var htmlAnalyse = function(value){
@@ -8,6 +9,7 @@ var htmlAnalyse = function(value){
 		var rep = new RegExp(pattern,'g');
 		value = value.replace(rep,val[1]);
 	})
+
 	value = value.replace(/\/\/link.zhihu.com\/\?target=/g,'');
 	value = value.replace(/target="_blank"/g,'');
 	value = value.replace(/class=".*?"/g,'');
