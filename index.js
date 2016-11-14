@@ -1,6 +1,6 @@
 'use strict';
 
-var zhihu = require("./requests/api.js").zhihu;
+var zhihu = require("./zhihuapi/api.js").zhihu;
 var fs = require("fs");
 
 var readline = require('readline');
@@ -26,10 +26,29 @@ rl.question("知乎专题id是多少？",function(answer){
     rl.close();
 });*/
 
-function collection(id,page){
-	var page = ++page;
+GetCollectionPages(42474270);
+
+/**
+ * 获取当前页数，并且调取保存
+ * @param {int} id 当前专题id
+ */
+function GetCollectionPages(id){
+	zhihu.GetCollectionPages(id).then(function(pages){
+		console.log("当前专题共计："+pages.last+'页');
+		GetCollection(id,pages.first,pages.last);
+	});
+}
+
+/**
+ * 读取知乎收藏夹
+ * @param  {string} id   收藏的id
+ * @param  {string} page 当前页码
+ */
+function GetCollection(id,pagefirst,pagelast){
+	var page = pagefirst;
 	zhihu.GetCollection(id,page).then(function(value){
 		console.log("----- 第"+page+"页已获取 -----");
+		// console.log(value);
 		return value;
 	}).then(function(value){
 		value.forEach(function(value){
@@ -40,10 +59,19 @@ function collection(id,page){
 			io(item.title,item.content);
 		})
 		setTimeout(function() {
-			if(value[0]) collection(id,page);
-		},1000);
+			if(page < pagelast){
+				++page;
+				GetCollection(id,page,pagelast);	
+			};
+		},500);
 	});
 }
+
+/**
+ * 保存文件
+ * @param  {string} title   文件名
+ * @param  {string} content 文件内容
+ */
 function io(title,content){
 	fs.open('zhihu/'+title+'.md','w',function(err,data){
 		if(err){
@@ -60,4 +88,3 @@ function io(title,content){
 	})
 }
 
-collection('42474270',0);

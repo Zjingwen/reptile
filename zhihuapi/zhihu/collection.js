@@ -1,7 +1,10 @@
+'use strict';
+
 var Promise = require("bluebird");
 var request =  Promise.promisify(require("request"));
 var cheerio = require("cheerio");
 var htmlAnalyse = require("../../htmlAnalyse/index.js").htmlAnalyse;
+var config = require("./config.js").config;
 
 function GetCollection (id,page){
 	if(!id) {
@@ -10,14 +13,12 @@ function GetCollection (id,page){
 	};
 	var page = page || '';
 	var zhihu = {
-		url : 'https://www.zhihu.com/collection/'+id,
-		headers : {
-			'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
-			'Content-Type': 'text/html; charset=UTF-8',
-      		'Referer': 'https://www.zhihu.com/question/'+id
-		}
+		url : config.collection+id,
+		headers : config.headers
 	};
-	if(page) zhihu.url = zhihu.url + '?page='+page;
+	if(page) {
+		zhihu.url = zhihu.url + '?page='+page;
+	}
 
 	return request(zhihu).then(function (content) {
 		var $ = cheerio.load(content.body,{decodeEntities: false});
@@ -33,6 +34,23 @@ function GetCollection (id,page){
 		return item;
 	});
 };
+
+function GetCollectionPages(id){
+	var zhihu = {
+		url : config.collection+id,
+		headers : config.headers
+	};
+	return request(zhihu).then(function (content){
+		var $ = cheerio.load(content.body,{decodeEntities: false});
+		var borderPagerNext = $(".border-pager").find("span");
+		var pages = {
+			first : borderPagerNext.eq(1).text(),
+			last : borderPagerNext.eq(5).text()
+		}
+		return pages;
+	})
+}
 module.exports = {
-	GetCollection:GetCollection
+	GetCollection:GetCollection,
+	GetCollectionPages:GetCollectionPages
 }
