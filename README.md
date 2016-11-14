@@ -5,7 +5,7 @@
 ####《保存知乎收藏夹到本地》
 首先你要有个能解析md的笔记工具，没有就洗洗睡吧少年。  
 装好node和npm后  
-`npm init`一发，装好依赖包。如果npm装不了，请用cnpm（淘宝源）  
+`npm install`一发，装好依赖包。如果npm装不了，请用cnpm（淘宝源）  
 装好之后执行命令  
 `npm run zhihu`  
 知乎收藏id是  
