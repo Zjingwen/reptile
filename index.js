@@ -54,9 +54,10 @@ function GetCollection(id,pagefirst,pagelast){
 		value.forEach(function(value){
 			var item = {
 				title:value.title,
-				content:value.body
+				content:value.body,
+				name:value.name
 			};
-			io(item.title,item.content);
+			io(item.title,item.content,item.name);
 		})
 		setTimeout(function() {
 			if(page < pagelast){
@@ -72,14 +73,14 @@ function GetCollection(id,pagefirst,pagelast){
  * @param  {string} title   文件名
  * @param  {string} content 文件内容
  */
-function io(title,content){
-	fs.open('zhihu/'+title+'.md','w',function(err,data){
+function io(title,content,name){
+	fs.open('zhihu/'+title+name+'.md','w',function(err,data){
 		if(err){
 			console.log("文件创建失败");
 			return false;
 		}
 	})
-	fs.writeFile('zhihu/'+title+'.md',content,function(err,data){
+	fs.writeFile('zhihu/'+title+name+'.md',content,function(err,data){
 		if(err){
 			console.log("文件写入失败");
 			return console.error(err);
