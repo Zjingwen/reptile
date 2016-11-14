@@ -8,25 +8,20 @@ var readline = require('readline');
 /**
  * [rl 命令行输入框]
  */
-/*var  rl = readline.createInterface({
+var  rl = readline.createInterface({
     input:process.stdin,
     output:process.stdout
 });
 
-rl.question("知乎专题id是多少？",function(answer){
-    console.log("专题ID是"+answer);
+rl.question("知乎收藏id是多少？",function(answer){
+    console.log("收藏ID是"+answer);
+    console.log("正在开始，不要慌张！！！！");
     // 不加close，则不会结束
-    var User = {
-		name : "jing-wen-zhou",
-		collection:{
-			url:"https://www.zhihu.com/collection/"+answer
-		}
-	}
-    collectionFun(User);
+	GetCollectionPages(answer);
+	//42474270
     rl.close();
-});*/
+});
 
-GetCollectionPages(42474270);
 
 /**
  * 获取当前页数，并且调取保存

@@ -4,7 +4,7 @@
   "description": "下载知乎收藏",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "zhihu": "node index.js"
   },
   "author": "",
   "license": "ISC",
