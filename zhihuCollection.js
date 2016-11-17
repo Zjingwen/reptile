@@ -8,6 +8,7 @@ var readline = require('readline');
 /**
  * [rl 命令行输入框]
  */
+
 var  rl = readline.createInterface({
     input:process.stdin,
     output:process.stdout
@@ -25,6 +26,7 @@ rl.question("知乎收藏id是多少？",function(answer){
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id
  */
+
 function GetCollectionList(id){
 	zhihu.GetCollectionPages(id).then(function(pages){
 		if(!pages) return false;
