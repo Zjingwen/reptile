@@ -3,7 +3,10 @@
 var config = require("../htmlAnalyse/config.js").config;
 
 var htmlAnalyse = function(value){
-	if(!value) return console.log("没有内容");
+	if(!value){
+		console.log("没有内容");
+		return false;
+	}
 	config.forEach(function(val){
 		var pattern = val[0];
 		var rep = new RegExp(pattern,'g');
