@@ -53,6 +53,11 @@ function GetCollectionPages(id){
 	};
 	return request(zhihu).then(function (content){
 		var $ = cheerio.load(content.body,{decodeEntities: false});
+
+		if(Boolean($('.error').html())){
+			console.log('当前收藏不存在');
+			return false;
+		}
 		var borderPagerNext = $(".border-pager").find("span");
 		var pages = {
 			first : borderPagerNext.eq(1).text(),
