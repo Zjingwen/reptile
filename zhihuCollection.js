@@ -16,19 +16,18 @@ var  rl = readline.createInterface({
 rl.question("知乎收藏id是多少？",function(answer){
     console.log("收藏ID是"+answer);
     console.log("正在开始，不要慌张！！！！");
-    // 不加close，则不会结束
-	GetCollectionPages(answer);
-	//42474270
+	GetCollectionList(answer);
+	//test id 42474270
     rl.close();
 });
-
 
 /**
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id
  */
-function GetCollectionPages(id){
+function GetCollectionList(id){
 	zhihu.GetCollectionPages(id).then(function(pages){
+		if(!pages) return false;
 		console.log("当前专题共计："+pages.last+'页');
 		GetCollection(id,pages.first,pages.last);
 	});
@@ -43,7 +42,6 @@ function GetCollection(id,pagefirst,pagelast){
 	var page = pagefirst;
 	zhihu.GetCollection(id,page).then(function(value){
 		console.log("----- 第"+page+"页已获取 -----");
-		// console.log(value);
 		return value;
 	}).then(function(value){
 		value.forEach(function(value){
