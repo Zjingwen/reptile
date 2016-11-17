@@ -24,6 +24,11 @@ function GetCollection(id,page){
 	if(page) {
 		zhihu.url = zhihu.url + '?page='+page;
 	}
+
+	function addTitle(title,body){
+		var content = '<h1>'+title+'</h1>'+body;
+		return content;
+	}
 	
 	return request(zhihu).then(function (content) {
 		var $ = cheerio.load(content.body,{decodeEntities: false});
@@ -44,19 +49,19 @@ function GetCollection(id,page){
 			var deleteAswer = Boolean($(element).find('#answer-status').html());
 
 			if( deleteAswer ){
-				var body = htmlAnalyse($(element).find("#answer-status").text());
-				var title = '被和谐了-'+$(element).find(".zm-item-title a").text();
+				var title = '「被和谐了」'+$(element).find(".zm-item-title a").text();
+				var body = addTitle(title,htmlAnalyse($(element).find("#answer-status").text()));
 				var name = $(element).find(".zm-item-fav .zm-item-answer").data("created");
 			}else{
 				if(type == 'Answer'){
-					var body = htmlAnalyse($(element).find(".zm-item-fav .zm-item-answer .content").text());
 					var title = $(element).find(".zm-item-title a").text();
+					var body = addTitle(title,htmlAnalyse($(element).find(".zm-item-fav .zm-item-answer .content").text()));
 					var name = $(element).find(".zm-item-fav .zm-item-answer").data("created");
 				}
 
 				if(type == 'Post'){
-					var body = htmlAnalyse($(element).find(".zm-item-fav .zm-item-post .content").text());
 					var title = $(element).find(".zm-item-title a").text();
+					var body = addTitle(title,htmlAnalyse($(element).find(".zm-item-fav .zm-item-post .content").text()));
 					var name = $(element).find(".zm-item-fav meta[itemprop=post-url-token]").attr("content");
 				}
 			}
