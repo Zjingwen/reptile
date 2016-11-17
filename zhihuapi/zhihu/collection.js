@@ -29,9 +29,38 @@ function GetCollection(id,page){
 		var $ = cheerio.load(content.body,{decodeEntities: false});
 		var item = [];
 		$(".zm-item").each(function(index,element){
-			var body = htmlAnalyse($(element).find("textarea").text());
-			var title = $(element).find(".zm-item-title a").text();
-			var name = $(element).find(".zm-item-fav .zm-item-answer").data("created");
+			/**
+			 * 判断当前类型
+			 * @type {
+			 * type == Answer 当前为回答
+			 * type == Post   当前为专题
+			 * }
+			 */
+			var type = $(element).data('type');
+			/**
+			 * 判断当前问题有没有被和谐
+			 * @type {bool}
+			 */
+			var deleteAswer = Boolean($(element).find('#answer-status').html());
+
+			if( deleteAswer ){
+				var body = htmlAnalyse($(element).find("#answer-status").text());
+				var title = '被和谐了-'+$(element).find(".zm-item-title a").text();
+				var name = $(element).find(".zm-item-fav .zm-item-answer").data("created");
+			}else{
+				if(type == 'Answer'){
+					var body = htmlAnalyse($(element).find(".zm-item-fav .zm-item-answer .content").text());
+					var title = $(element).find(".zm-item-title a").text();
+					var name = $(element).find(".zm-item-fav .zm-item-answer").data("created");
+				}
+
+				if(type == 'Post'){
+					var body = htmlAnalyse($(element).find(".zm-item-fav .zm-item-post .content").text());
+					var title = $(element).find(".zm-item-title a").text();
+					var name = $(element).find(".zm-item-fav meta[itemprop=post-url-token]").attr("content");
+				}
+			}
+
 			item.push({
 				body:body,
 				title:title,
