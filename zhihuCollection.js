@@ -1,5 +1,10 @@
 'use strict';
-
+/**
+ * TODO 下个版本1.2.0添加功能
+ * 不重复保存已保存的收藏
+ * 如果该收藏被删除，提示用户
+ * 在网络状态差的情况下，重新请求
+ */
 var zhihu = require("./zhihuapi/api.js").zhihu;
 var fs = require("fs");
 
