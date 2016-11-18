@@ -1,8 +1,8 @@
-var GetCollection = require("./zhihu/collection.js").GetCollection;
-var GetCollectionPages = require("./zhihu/collection.js").GetCollectionPages;
+var GetCollection = require('./zhihu/collection.js').GetCollection
+var GetCollectionPages = require('./zhihu/collection.js').GetCollectionPages
 module.exports = {
-	zhihu:{
-		GetCollection:GetCollection,
-		GetCollectionPages:GetCollectionPages
-	}
+  zhihu: {
+    GetCollection: GetCollection,
+    GetCollectionPages: GetCollectionPages
+  }
 }
