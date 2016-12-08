@@ -8,13 +8,11 @@
  */
 var zhihu = require('./zhihuapi/api.js').zhihu
 var fs = require('fs')
-
 var readline = require('readline')
 
 /**
  * [rl 命令行输入框]
  */
-
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -32,7 +30,6 @@ rl.question('知乎收藏id是多少？', function (answer) {
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id
  */
-
 function GetCollectionList (id) {
   zhihu.GetCollectionPages(id).then(function (pages) {
     if (!pages) return false
@@ -53,12 +50,8 @@ function GetCollection (id, pagefirst, pagelast) {
     return value
   }).then(function (value) {
     value.forEach(function (value) {
-      var item = {
-        title: value.title,
-        content: value.body,
-        name: value.name
-      }
-      io(item.title, item.content, item.name)
+      // value 包含 {title,body,key}
+      io(value)
     })
     setTimeout(function () {
       if (page < pagelast) {
@@ -70,18 +63,21 @@ function GetCollection (id, pagefirst, pagelast) {
 }
 
 /**
- * 保存文件
- * @param  {string} title   文件名
- * @param  {string} content 文件内容
+ * 存储文件
+ * @param  {object} value {包含title\body\key}
  */
-function io (title, content, name) {
-  fs.open('zhihu/' + title + name + '.md', 'w', function (err, data) {
+function io (value) {
+  var title = value.title
+  var body = value.body
+  var key = value.key
+
+  fs.open('zhihu/' + title + key + '.md', 'w', function (err, data) {
     if (err) {
       console.log('文件创建失败')
       return false
     }
   })
-  fs.writeFile('zhihu/' + title + name + '.md', content, function (err, data) {
+  fs.writeFile('zhihu/' + title + key + '.md', body, function (err, data) {
     if (err) {
       console.log('文件写入失败')
       return console.error(err)
