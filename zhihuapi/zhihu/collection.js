@@ -16,19 +16,16 @@ function GetCollection (id, page) {
     console.log('你确定id输入了？')
     return false
   }
-  page = page || ''
+  // page = page || ''
+
   var zhihu = {
     url: config.collection + id,
     headers: config.headers
   }
-  if (page) {
-    zhihu.url = zhihu.url + '?page=' + page
-  }
 
-  function addTitle (title, body) {
-    var content = '<h1>' + title + '</h1>' + body
-    return content
-  }
+  // if (page) {
+  zhihu.url = zhihu.url + '?page=' + page
+  // }
 
   return request(zhihu).then(function (content) {
     var $ = cheerio.load(content.body, {decodeEntities: false})
@@ -47,34 +44,40 @@ function GetCollection (id, page) {
        * @type {bool}
        */
       var deleteAswer = Boolean($(element).find('#answer-status').html())
-      var title, body, name
+      var orgin = {}
 
       if (deleteAswer) {
-        title = '「被和谐了」' + $(element).find('.zm-item-title a').text()
-        body = addTitle(title, htmlAnalyse($(element).find('#answer-status').text()))
-        name = $(element).find('.zm-item-fav .zm-item-answer').data('created')
+        orgin.title = '「被和谐了」' + $(element).find('.zm-item-title a').text()
+        orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('#answer-status').text()))
+        orgin.key = $(element).find('.zm-item-fav .zm-item-answer').data('created')
       } else {
         if (type === 'Answer') {
-          title = $(element).find('.zm-item-title a').text()
-          body = addTitle(title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-answer .content').text()))
-          name = $(element).find('.zm-item-fav .zm-item-answer').data('created')
+          orgin.title = $(element).find('.zm-item-title a').text()
+          orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-answer .content').text()))
+          orgin.key = $(element).find('.zm-item-fav .zm-item-answer').data('created')
         }
-
         if (type === 'Post') {
-          title = $(element).find('.zm-item-title a').text()
-          body = addTitle(title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-post .content').text()))
-          name = $(element).find('.zm-item-fav meta[itemprop=post-url-token]').attr('content')
+          orgin.title = $(element).find('.zm-item-title a').text()
+          orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-post .content').text()))
+          orgin.key = $(element).find('.zm-item-fav meta[itemprop=post-url-token]').attr('content')
         }
       }
 
-      item.push({
-        body: body,
-        title: title,
-        name: name
-      })
+      item.push(orgin)
     })
+
     return item
   })
+}
+
+/**
+ * 将标题和key拼接在一起，让同一个回答的收藏可以保存
+ * @param {string} title 辩题
+ * @param {int} key   标示
+ */
+function addTitle (title, key) {
+  var content = '<h1>' + title + '</h1>' + key
+  return content
 }
 
 /**
@@ -101,6 +104,7 @@ function GetCollectionPages (id) {
     return pages
   })
 }
+
 module.exports = {
   GetCollection: GetCollection,
   GetCollectionPages: GetCollectionPages
