@@ -26,6 +26,8 @@ rl.question('知乎收藏id是多少？', function (answer) {
   rl.close()
 })
 
+// GetCollectionList('42474270')
+
 /**
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id

@@ -3,9 +3,8 @@
 var Promise = require('bluebird')
 var request = Promise.promisify(require('request'))
 var cheerio = require('cheerio')
-var htmlAnalyse = require('../../htmlAnalyse/index.js').htmlAnalyse
+var html = require('../../html/main.js')
 var config = require('./config.js').config
-
 /**
  * 获取收藏内容
  * @param {string} id   收藏页面id
@@ -48,17 +47,17 @@ function GetCollection (id, page) {
 
       if (deleteAswer) {
         orgin.title = '「被和谐了」' + $(element).find('.zm-item-title a').text()
-        orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('#answer-status').text()))
+        orgin.body = addTitle(orgin.title, html($(element).find('#answer-status').text()))
         orgin.key = $(element).find('.zm-item-fav .zm-item-answer').data('created')
       } else {
         if (type === 'Answer') {
           orgin.title = $(element).find('.zm-item-title a').text()
-          orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-answer .content').text()))
+          orgin.body = addTitle(orgin.title, html($(element).find('.zm-item-fav .zm-item-answer .content').text()))
           orgin.key = $(element).find('.zm-item-fav .zm-item-answer').data('created')
         }
         if (type === 'Post') {
           orgin.title = $(element).find('.zm-item-title a').text()
-          orgin.body = addTitle(orgin.title, htmlAnalyse($(element).find('.zm-item-fav .zm-item-post .content').text()))
+          orgin.body = addTitle(orgin.title, html($(element).find('.zm-item-fav .zm-item-post .content').text()))
           orgin.key = $(element).find('.zm-item-fav meta[itemprop=post-url-token]').attr('content')
         }
       }

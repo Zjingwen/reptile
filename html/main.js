@@ -1,8 +1,19 @@
 'use strict'
 
-var config = require('../htmlAnalyse/config.js').config
+var config = [
+  ['&quot;', '"'],
+  ['&amp;', '&'],
+  ['&lt;', '<'],
+  ['&gt;', '>'],
+  ['&nbsp;', ' '],
+  ['&amp;', '&'],
+  ['%3A', ':'],
+  ['%3F', '?'],
+  ['%3D', '='],
+  ['%26', '&']
+]
 
-var htmlAnalyse = function (value) {
+var html = function (value) {
   if (!value) {
     console.log('没有内容')
     return false
@@ -26,6 +37,4 @@ var htmlAnalyse = function (value) {
 
   return value
 }
-module.exports = {
-  htmlAnalyse: htmlAnalyse
-}
+module.exports = html
