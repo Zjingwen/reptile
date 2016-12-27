@@ -4,7 +4,7 @@
   "description": "下载知乎收藏",
   "main": "",
   "scripts": {
-    "test":"standard --fix",
+    "test": "standard --fix",
     "zhihu": "node zhihuCollection.js"
   },
   "author": "",
@@ -18,7 +18,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-config-standard": "^6.2.1",
-    "standard": "^8.5.0"
+    "standard": "^8.5.0",
+    "express": "^4.14.0"
   }
-
 }
