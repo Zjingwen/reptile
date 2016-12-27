@@ -25,15 +25,15 @@ var html = function (value) {
   })
 
   value = value.replace(/\/\/link.zhihu.com\/\?target=/g, '')
-  value = value.replace(/target="_blank"/g, '')
-  value = value.replace(/class=".*?"/g, '')
-  value = value.replace(/rel=".*?"/g, '')
+  value = value.replace(/\starget="_blank"/g, '')
+  value = value.replace(/\sclass=".*?"/g, '')
+  value = value.replace(/\srel=".*?"/g, '')
   value = value.replace(/\n/g, '<br />')
-  value = value.replace(/data-original=".*?"/g, '')
-  value = value.replace(/data-rawwidth=".*?"/g, '')
-  value = value.replace(/data-rawheight=".*?"/g, '')
-  value = value.replace(/data-rawwidth=".*?"/g, '')
-  value = value.replace(/width=".*?"/g, '')
+  value = value.replace(/\sdata-original=".*?"/g, '')
+  value = value.replace(/\sdata-rawwidth=".*?"/g, '')
+  value = value.replace(/\sdata-rawheight=".*?"/g, '')
+  value = value.replace(/\sdata-rawwidth=".*?"/g, '')
+  value = value.replace(/\swidth=".*?"/g, '')
 
   return value
 }
