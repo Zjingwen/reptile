@@ -76,12 +76,18 @@ function io (value) {
       console.log('文件创建失败')
       return false
     }
-  })
-  fs.writeFile('zhihu/' + title + key + '.md', body, function (err, data) {
-    if (err) {
-      console.log('文件写入失败')
-      return console.error(err)
-    }
-    console.log(title + '.md' + '-----文件写入成功')
+    fs.writeFile('zhihu/' + title + key + '.md', body, function (err) {
+      if (err) {
+        console.log('文件写入失败')
+        return console.error(err)
+      }
+      console.log(title + '.md' + '-----文件写入成功')
+      fs.close(data, function (err) {
+        if (err) {
+          console.log('文件关闭失败')
+          return console.error(err)
+        }
+      })
+    })
   })
 }
