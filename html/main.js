@@ -1,5 +1,4 @@
 'use strict'
-var toMarkdown = require('to-markdown')
 
 var config = [
   ['&quot;', '"'],
