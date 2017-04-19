@@ -5,6 +5,7 @@ var request = Promise.promisify(require('request'))
 var cheerio = require('cheerio')
 var html = require('../../html/main.js')
 var config = require('./config.js').config
+var toMarkdown = require('to-markdown')
 /**
  * 获取收藏内容
  * @param {string} id   收藏页面id
@@ -72,11 +73,11 @@ function GetCollection (id, page) {
 /**
  * 将标题和key拼接在一起，让同一个回答的收藏可以保存
  * @param {string} title 辩题
- * @param {int} key   标示
+ * @param {int} content   标示
  */
-function addTitle (title, key) {
-  var content = '<h1>' + title + '</h1>' + key
-  return content
+function addTitle (title, content) {
+  var content = '<h1>' + title + '</h1>' + content
+  return toMarkdown(content)
 }
 
 /**
@@ -95,11 +96,13 @@ function GetCollectionPages (id) {
       console.log('当前收藏不存在')
       return false
     }
-    var borderPagerNext = $('.border-pager').find('span')
+    var borderPagerNext = $('.zm-invite-pager').find('span')
+
     var pages = {
       first: borderPagerNext.eq(1).text(),
-      last: borderPagerNext.eq(5).text()
+      last: borderPagerNext.eq(borderPagerNext.length - 2).text()
     }
+
     return pages
   })
 }

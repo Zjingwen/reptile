@@ -17,7 +17,6 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
-
 rl.question('知乎收藏id是多少？', function (answer) {
   console.log('收藏ID是' + answer)
   console.log('正在开始，不要慌张！！！！')
@@ -33,7 +32,7 @@ rl.question('知乎收藏id是多少？', function (answer) {
 function GetCollectionList (id) {
   zhihu.GetCollectionPages(id).then(function (pages) {
     if (!pages) return false
-    console.log('当前专题共计：' + pages.last + '页')
+    console.log('当前收藏共计：' + pages.last + '页')
     GetCollection(id, pages.first, pages.last)
   })
 }
@@ -58,7 +57,7 @@ function GetCollection (id, pagefirst, pagelast) {
         ++page
         GetCollection(id, page, pagelast)
       }
-    }, 500)
+    }, 450)
   })
 }
 
