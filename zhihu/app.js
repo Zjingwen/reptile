@@ -17,6 +17,15 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
+
+fs.exists('/zhihu', function (exists) {
+  if (!exists) {
+    fs.mkdir('./zhihu', '0777', function (err) {
+      if (err) throw err
+    })
+  }
+})
+
 rl.question('知乎收藏id是多少？', function (answer) {
   console.log('收藏ID是' + answer)
   console.log('正在开始，不要慌张！！！！')
