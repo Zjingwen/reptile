@@ -13,9 +13,9 @@ var readline = require('readline')
 /**
  * 判断文件是否存在，不存在就创建
  */
-fs.exists('/zhihu', function (exists) {
+fs.exists('/init', function (exists) {
   if (!exists) {
-    fs.mkdir('./zhihu', '0777', function (err) {
+    fs.mkdir('./init', '0777', function (err) {
       if (err) throw err
     })
   }
@@ -82,12 +82,12 @@ function io (value) {
   var body = value.body
   var key = value.key
 
-  fs.open('zhihu/' + title + key + '.md', 'w', function (err, data) {
+  fs.open('init/' + title + key + '.md', 'w', function (err, data) {
     if (err) {
       console.log('文件创建失败')
       return false
     }
-    fs.writeFile('zhihu/' + title + key + '.md', body, function (err) {
+    fs.writeFile('init/' + title + key + '.md', body, function (err) {
       if (err) {
         console.log('文件写入失败')
         return console.error(err)
