@@ -96,11 +96,13 @@ function GetCollectionPages (id) {
       console.log('当前收藏不存在')
       return false
     }
-    var borderPagerNext = $('.border-pager').find('span')
+    var borderPagerNext = $('.zm-invite-pager').find('span')
+
     var pages = {
       first: borderPagerNext.eq(1).text(),
-      last: borderPagerNext.eq(5).text()
+      last: borderPagerNext.eq(borderPagerNext.length - 2).text()
     }
+
     return pages
   })
 }

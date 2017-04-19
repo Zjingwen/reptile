@@ -24,6 +24,7 @@ rl.question('知乎收藏id是多少？', function (answer) {
   // test id 42474270
   rl.close()
 })
+
 /**
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id
@@ -31,7 +32,7 @@ rl.question('知乎收藏id是多少？', function (answer) {
 function GetCollectionList (id) {
   zhihu.GetCollectionPages(id).then(function (pages) {
     if (!pages) return false
-    console.log('当前专题共计：' + pages.last + '页')
+    console.log('当前收藏共计：' + pages.last + '页')
     GetCollection(id, pages.first, pages.last)
   })
 }
