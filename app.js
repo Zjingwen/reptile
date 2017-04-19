@@ -17,7 +17,6 @@ var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
-/*
 rl.question('知乎收藏id是多少？', function (answer) {
   console.log('收藏ID是' + answer)
   console.log('正在开始，不要慌张！！！！')
@@ -25,8 +24,6 @@ rl.question('知乎收藏id是多少？', function (answer) {
   // test id 42474270
   rl.close()
 })
-*/
-GetCollectionList(42474270)
 /**
  * 获取当前页数，并且调取保存
  * @param {int} id 当前专题id
@@ -59,7 +56,7 @@ function GetCollection (id, pagefirst, pagelast) {
         ++page
         GetCollection(id, page, pagelast)
       }
-    }, 500)
+    }, 450)
   })
 }
 
