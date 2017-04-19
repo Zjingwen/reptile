@@ -11,19 +11,22 @@ var fs = require('fs')
 var readline = require('readline')
 
 /**
- * [rl 命令行输入框]
+ * 判断文件是否存在，不存在就创建
  */
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-})
-
 fs.exists('/zhihu', function (exists) {
   if (!exists) {
     fs.mkdir('./zhihu', '0777', function (err) {
       if (err) throw err
     })
   }
+})
+
+/**
+ * [rl 命令行输入框]
+ */
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 })
 
 rl.question('知乎收藏id是多少？', function (answer) {
