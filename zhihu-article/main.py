@@ -11,8 +11,9 @@ import re
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+url = raw_input('请输入url：')
 
-url = 'https://www.zhihu.com/question/54399502/answer/157595512'
+# url = 'https://www.zhihu.com/question/54399502/answer/157595512'
 
 def get_content_tite_id(url):
     headers = {
@@ -28,7 +29,7 @@ def get_content_tite_id(url):
 
     soup = BeautifulSoup(content, 'html.parser')
 
-    title = soup.title.string
+    title = soup.find_all("h1", class_="QuestionHeader-title")[0].text
     richText = soup.find_all("span", class_="CopyrightRichText-richText")[0].contents
     id = soup.find_all("div", class_="ContentItem")[0].get('name')
 
