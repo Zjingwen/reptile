@@ -11,12 +11,24 @@ var fs = require('fs')
 var readline = require('readline')
 
 /**
+ * 判断文件是否存在，不存在就创建
+ */
+fs.exists('/init', function (exists) {
+  if (!exists) {
+    fs.mkdir('./init', '0777', function (err) {
+      if (err) throw err
+    })
+  }
+})
+
+/**
  * [rl 命令行输入框]
  */
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
+
 rl.question('知乎收藏id是多少？', function (answer) {
   console.log('收藏ID是' + answer)
   console.log('正在开始，不要慌张！！！！')
@@ -70,12 +82,12 @@ function io (value) {
   var body = value.body
   var key = value.key
 
-  fs.open('zhihu/' + title + key + '.md', 'w', function (err, data) {
+  fs.open('init/' + title + key + '.md', 'w', function (err, data) {
     if (err) {
       console.log('文件创建失败')
       return false
     }
-    fs.writeFile('zhihu/' + title + key + '.md', body, function (err) {
+    fs.writeFile('init/' + title + key + '.md', body, function (err) {
       if (err) {
         console.log('文件写入失败')
         return console.error(err)
