@@ -15,7 +15,11 @@ url = raw_input('请输入url：')
 
 # url = 'https://www.zhihu.com/question/54399502/answer/157595512'
 
-def get_content_tite_id(url):
+def get_content_tite_id(url=None):
+    if(url == None):
+        TypeError('参数错误')
+        return False
+
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36',
         'Content-Type': 'text/html; charset=UTF-8',
@@ -37,9 +41,9 @@ def get_content_tite_id(url):
 
 
     lists = {
-        'title' : title,
-        'id' : id,
-        'content' : body
+        'title': title,
+        'id': id,
+        'content': body
     }
     return lists
 
@@ -71,7 +75,7 @@ def subn_content(text):
     ch = ''
 
     for i in config:
-        ch = re.sub(r''+i[0],i[1],text)
+        ch = re.sub(r''+i[0], i[1], text)
 
     return ch
 
@@ -80,6 +84,6 @@ md = get_content_tite_id(url)
 
 path = os.path.abspath('')
 
-with codecs.open(path+'/'+md['title']+md['id']+'.md','w','utf-8') as f:
+with codecs.open(path+'/'+md['title']+md['id']+'.md', 'w', 'utf-8') as f:
     f.write(subn_content(md['content']))
     print '成功'

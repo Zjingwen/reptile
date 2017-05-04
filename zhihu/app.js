@@ -13,13 +13,13 @@ var readline = require('readline')
 /**
  * 判断文件是否存在，不存在就创建
  */
-fs.exists('/init', function (exists) {
-  if (!exists) {
-    fs.mkdir('./init', '0777', function (err) {
-      if (err) throw err
-    })
-  }
-})
+// fs.exists('/init', function (exists) {
+//   if (!exists) {
+//     fs.mkdir('./init', '0777', function (err) {
+//       if (err) throw err
+//     })
+//   }
+// })
 
 /**
  * [rl 命令行输入框]
