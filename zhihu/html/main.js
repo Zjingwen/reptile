@@ -23,7 +23,8 @@ let config = [
   ['\\n', '<br />'],
   ['\\swidth=".*?"', ''],
   ['\\srel=".*?"', ''],
-  ['\\sdata-original=".*?"', '']
+  ['\\sdata-original=".*?"', ''],
+  ['<figure>','']
 ]
 
 var html = function (value) {
