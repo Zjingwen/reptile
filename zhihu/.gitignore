@@ -1,3 +1,4 @@
 node_modules/
 init/
 npm-debug.log
+.DS_Store
