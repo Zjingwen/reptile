@@ -29,13 +29,13 @@ var rl = readline.createInterface({
   output: process.stdout
 })
 
-rl.question('知乎收藏id是多少？', function (answer) {
-  console.log('收藏ID是' + answer)
-  console.log('正在开始，不要慌张！！！！')
-  GetCollectionList(answer)
+// rl.question('知乎收藏id是多少？', function (answer) {
+  // console.log('收藏ID是' + answer)
+  // console.log('正在开始，不要慌张！！！！')
+  // GetCollectionList(answer)
   // test id 42474270
-  rl.close()
-})
+  // rl.close()
+// })
 
 /**
  * 获取当前页数，并且调取保存
@@ -68,6 +68,8 @@ function GetCollection (id, pagefirst, pagelast) {
       if (page < pagelast) {
         ++page
         GetCollection(id, page, pagelast)
+      }else{
+        console.log("文件保存完成")
       }
     }, 450)
   })
@@ -93,6 +95,41 @@ function io (value) {
         return console.error(err)
       }
       console.log(title + '.md' + '-----文件写入成功')
+      fs.close(data, function (err) {
+        if (err) {
+          console.log('文件关闭失败')
+          return console.error(err)
+        }
+      })
+    })
+  })
+}
+
+/**
+ * 产出README文件
+ */
+README();
+function README() {
+  var file = fs.readdirSync("init/");
+  var body = "";
+
+  file.forEach(function(value) {
+    if(value != '.DS_Store'){
+      body+='['+value+']('+value+')\n'
+    }
+  });
+
+  fs.open('init/README.md', 'w', function (err, data) {
+    if (err) {
+      console.log('文件创建失败')
+      return false
+    }
+    fs.writeFile('init/README.md', body, function (err) {
+      if (err) {
+        console.log('文件写入失败')
+        return console.error(err)
+      }
+      console.log('README.md' + '-----文件写入成功')
       fs.close(data, function (err) {
         if (err) {
           console.log('文件关闭失败')
