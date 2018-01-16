@@ -29,13 +29,13 @@ var rl = readline.createInterface({
   output: process.stdout
 })
 
-// rl.question('知乎收藏id是多少？', function (answer) {
-  // console.log('收藏ID是' + answer)
-  // console.log('正在开始，不要慌张！！！！')
-  // GetCollectionList(answer)
+rl.question('知乎收藏id是多少？', function (answer) {
+  console.log('收藏ID是' + answer)
+  console.log('正在开始，不要慌张！！！！')
+  GetCollectionList(answer)
   // test id 42474270
-  // rl.close()
-// })
+  rl.close()
+})
 
 /**
  * 获取当前页数，并且调取保存
@@ -69,6 +69,7 @@ function GetCollection (id, pagefirst, pagelast) {
         ++page
         GetCollection(id, page, pagelast)
       }else{
+        README();
         console.log("文件保存完成")
       }
     }, 450)
@@ -108,13 +109,12 @@ function io (value) {
 /**
  * 产出README文件
  */
-README();
 function README() {
   var file = fs.readdirSync("init/");
   var body = "";
 
   file.forEach(function(value) {
-    if(value != '.DS_Store'){
+    if(value != '.DS_Store' && value != 'README.md' ){
       body+='['+value+']('+value+')\n'
     }
   });
