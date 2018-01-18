@@ -115,7 +115,8 @@ function README() {
 
   file.forEach(function(value) {
     if(value != '.DS_Store' && value != 'README.md' ){
-      body+='['+value+']('+value+')\n'
+      body+='['+value+']('+encodeURIComponent(value)+')<br/>'
+     
     }
   });
 
